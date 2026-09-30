@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
+using OnlineVoting.Domain.UseCases;
 using OnlineVoting.Infrastructure.Data;
-
+using OnlineVoting.Infrastructure.Implementations;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -8,6 +9,7 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<VotingContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
+builder.Services.AddScoped<IUnitOfWork,UnitOfWork>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
